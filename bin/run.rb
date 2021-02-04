@@ -1,0 +1,1 @@
+require "../lib/command_line_interface.rb"
