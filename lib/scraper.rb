@@ -12,7 +12,7 @@ class S
         @major_scales_information = major.flatten.select {|a| a.include?("Major Scale")}
     end
     
-    def self.scrape_major_key_scale_name
+    def self.scrape_major_key_names
         self.scrape_major_key_scale_overview
         name = @major_scales_information.map {|a| a.split(":")}.flatten
         @major_scale_names = name.select {|a| a.include?("Major Scale")}.delete_if {|a| a.include?("\t" || "Categories")}
@@ -23,19 +23,24 @@ class S
         @major_scale_notes = @major_scales_information.map {|a| a.split(":")}.flatten.delete_if {|a| a == "Categories" || a.include?("Scale")}
     end
 
+    def major_scale_name_and_notes
+        self.scrape_major_key_name
+        self.scrape_major_key_notes
+    end
+
     def self.scrape_minor_key_scale_overview
         doc = Nokogiri::HTML(open("https://piano-music-theory.com/2016/06/01/minor-scales-natural-minor-scales/"))
         minor = doc.css("p").map {|a| a.text.split("\n")}
         @minor_scales_information = minor.flatten.select {|a| a.include?("Minor Scale")}
     end
 
-    def self.scrape_minor_key_scale_name
+    def self.scrape_minor_key_names
         self.scrape_minor_key_scale_overview
         name = @minor_scales_information.map {|a| a.split(":")}.flatten
         @minor_scale_names = name.select {|a| a.include?("Minor Scale")}.delete_if {|a| a.include?("\t" || "Categories")}
     end
 
-    #Chords
+    #Major Chords
     
     def self.scrape_minor_key_notes
         self.scrape_minor_key_scale_overview
@@ -123,6 +128,139 @@ class S
         @b_flat_maj_chords = b.map {|a| a + ")"}
     end
 
+    def self.b_maj_chords
+        b_maj = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-b.html"))
+        b = b_maj.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("flat") || a.include?("diminished") || a.include?(".") || a.include?("ii – V – I") || a.include?("I – vi – IV – V")}
+        @b_flat_maj_chords = b.map {|a| a + ")"}
+    end
+
+    #Minor Chords
+
+    def self.c_min_chords
+        c_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-c-minor.html"))
+        c = c_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI –  VII")}
+        @c_min_chords = c.map {|a| a + ")"}
+    end
+
+    def self.c_sharp_min_chords
+        c_sharp_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-c-sharp-minor.html"))
+        c = c_sharp_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @c_sharp_min_chords = c.map {|a| a + ")"}
+    end
+
+    def self.c_sharp_min_chords
+        c_sharp_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-c-sharp-minor.html"))
+        c = c_sharp_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @c_sharp_min_chords = c.map {|a| a + ")"}
+    end
+
+    def self.d_min_chords
+        d_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-d-minor.html"))
+        d = d_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @d_min_chords = d.map {|a| a + ")"}
+    end
+
+    def self.d_sharp_min_chords
+        d_sharp_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-d-sharp-minor.html"))
+        d = d_sharp_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @d_sharp_min_chords = d.map {|a| a + ")"}
+    end
+
+    def self.e_flat_min_chords
+        e_flat_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-e-flat-minor.html"))
+        e = e_flat_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @e_sharp_min_chords = e.map {|a| a + ")"}
+    end
+
+    def self.e_min_chords
+        e_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-e-minor.html"))
+        e = e_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @e_flat_min_chords = e.map {|a| a + ")"}
+    end
+
+    def self.f_min_chords
+        f_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-f-minor.html"))
+        f = f_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @f_min_chords = f.map {|a| a + ")"}
+    end
+
+    def self.f_sharp_min_chords
+        f_sharp_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-f-sharp-minor.html"))
+        f = f_sharp_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @f_sharp_min_chords = f.map {|a| a + ")"}
+    end
+
+    def self.f_min_chords
+        f_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-f-minor.html"))
+        f = f_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @f_min_chords = f.map {|a| a + ")"}
+    end
+
+    # we are not using G Flat Minor
+
+    def self.g_min_chords
+        g_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-g-minor.html"))
+        g = g_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @g_min_chords = g.map {|a| a + ")"}
+    end
+
+    def self.g_sharp_min_chords
+        g_sharp_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-g-sharp-minor.html"))
+        g = g_sharp_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @g_sharp_min_chords = g.map {|a| a + ")"}
+    end
+
+    def self.a_flat_min_chords
+        a_flat_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-a-flat-minor.html"))
+        a = a_flat_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @a_flat_min_chords = a.map {|a| a + ")"}
+    end
+
+    def self.a_min_chords
+        a_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-a-minor.html"))
+        a = a_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @a_min_chords = a.map {|a| a + ")"}
+    end
+
+    def self.a_sharp_min_chords
+        a_sharp_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-a-sharp-minor.html"))
+        a = a_sharp_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @a_sharp_min_chords = a.map {|a| a + ")"}
+    end
+
+    def self.b_flat_min_chords
+        b_flat_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-b-flat-minor.html"))
+        b = b_flat_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII")}
+        @b_flat_min_chords = b.map {|a| a + ")"}
+    end
+
+    def self.b_min_chords
+        b_min = Nokogiri::HTML(open("http://www.piano-keyboard-guide.com/key-of-b-minor.html"))
+        b = b_min.css(".entry-content ul li").text.split(")").delete_if {|a| a.include?("diminished") || a.include?(".") || a.include?("ii – v – i") || a.include?("i – VI – III – VII") || a.include?("i – iv – v") || a.include?("i – iv – VII") || a.include?("i – VI – VII") || a.include?("ii – V – I (C#m7 – F#7 – Bmaj7") || a.include?("I – vi – IV – V (B – G#m – E")}
+        @b_min_chords = b.map {|a| a + ")"}
+    end
+
+
+    # Hash creation
+
+    def self.major_scale_names_and_notes
+        self.scrape_major_key_names
+        self.scrape_major_key_notes
+    end
+
+    def self.minor_scale_names_and_notes
+        self.scrape_minor_key_names
+        self.scrape_minor_key_notes
+    end
+
+
+
+    def create_hash_for_key
+
+        self.major_scale_name_and_notes
+        self.minor_scale_name_and_notes
+
+    end
 
 
 
