@@ -293,36 +293,32 @@ class S
         @notes << self.scrape_minor_key_notes
     end
 
-    def self.create_hash_for_key_name
+    def self.create_hash_for_keys
         self.all_scale_names_and_notes
         self.chords
 
-        @keys = {}
-        @keys["major"] = {}
-        @keys["minor"] = {}
+        @@keys = {}
+        @@keys["major"] = {}
+        @@keys["minor"] = {}
 
         @names[0].each do |name|          
-            @keys["major"][:"#{name}"] = {
-                :notes => @notes[0][@keys["major"].length],    
-                :chords => @major_chords[@keys["major"].length]
+            @@keys["major"][:"#{name}"] = {
+                :notes => @notes[0][@@keys["major"].length],    
+                :chords => @major_chords[@@keys["major"].length]
             }          
        end
        @names[1].each do |name|          
-        @keys["minor"][:"#{name}"] = {
-            :notes => @notes[1][@keys["minor"].length],
-            :chords => @minor_chords[@keys["minor"].length]
+        @@keys["minor"][:"#{name}"] = {
+            :notes => @notes[1][@@keys["minor"].length],
+            :chords => @minor_chords[@@keys["minor"].length]
         }
         end
-      @keys
+      @@keys
     end
 
-    def self.add_notes_to_hash
-        self.create_hash_for_key_name
-
-        @keys["major"][]
-
-
-
+    def self.keys
+        self.create_hash_for_keys
+        @@keys
     end
 
     #ATTR TO MANUALLY INPUT:
@@ -334,19 +330,3 @@ class S
     binding.pry
 
 end
-
-keys = {
-    :c_major => {
-        :notes => ["c", "d", "e", "f", "g", "a", "b"],
-        :chords => {
-            "I (1)" => "C Major",
-            "ii (2)" => "d minor",
-            "iii (3)" => "e minor",
-            "IV (4)" => "F major",
-            "V (5)" => "G Major",
-            "vi (6)" => "a minor",
-    },
-        :relative_fifth => "G Major",
-        :songs => ["...", "...", "...", "...", "..."]
-    }
-}

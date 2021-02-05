@@ -6,18 +6,19 @@ require_relative "../lib/scraper.rb"
 
 class Key
 
-    attr_accessor :notes, :chords, :relative_fifth, :songs
-    attr_reader :name
+    attr_accessor :name, :notes, :chords, :relative_fifth, :songs
 
     @@all = []
-
-    def initialize(name, notes, chords, relative_fifth, songs)
-        
-
-    end
 
     def self.all
         @@all
     end
 
+    def self.create_new_key(name)
+
+
+    end
+
+    binding.pry
 end
+
