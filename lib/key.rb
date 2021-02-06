@@ -10,6 +10,10 @@ class Key
 
     @@all = []
 
+    def initialize(name, notes, chords, relative_fifth, songs)
+
+    end
+
     def self.all
         @@all
     end
@@ -19,6 +23,5 @@ class Key
 
     end
 
-    binding.pry
 end
 
