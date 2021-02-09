@@ -1,0 +1,17 @@
+notes: 
+    -abstract chord method
+    -organize methods into classes
+
+
+:C=>
+    {:notes=>"C – D – E – F – G – A – B – C",
+     :relative_fifth=>"G Major",
+     :relative_minor=>"A minor",
+     :chords=>
+      ["I – C major, C major seventh (Cmaj, Cmaj7)",
+       "ii – D minor, D minor seventh (Dm, Dm7)",
+       "iii – E minor, E minor seventh (Em, Em7)",
+       "IV – F major, F major seventh (F, Fmaj 7)",
+       "V – G major, G dominant seventh (G, G7)",
+       "vi – A minor, A minor seventh (Am, Am7)",
+       "vii° – B diminished, B minor seventh flat five (B°, Bm7b5)"]}

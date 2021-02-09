@@ -6,8 +6,7 @@ require_relative "../lib/scraper.rb"
 
 class Key
 
-    attr_accessor :name, :notes, :chords, :relative_fifth, :songs
-
+    attr_accessor :name, :notes, :chords, :relative_fifth, :relative_key
     @@all = []
 
     def initialize(name, notes, chords, relative_fifth, songs)
