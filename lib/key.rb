@@ -23,5 +23,15 @@ class Key
       @@all << self
     end
 
+    # def generate_progression
+    #     puts chords[rand(6)]
+    # end
+
+    # def self.create_new_key
+    #     @user_input = gets.strip
+    #     key_information_creator
+    # end
+
 end
 
+binding.pry

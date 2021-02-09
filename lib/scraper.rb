@@ -182,7 +182,7 @@ require_relative "../lib/key.rb"
             :chords => @user_input_chords
      }   
        end
-       @user_input = Key.new(@user_key_info)
+       @key = Key.new(@user_key_info)
      end 
      
      def individual_chord_scraper
@@ -197,7 +197,7 @@ require_relative "../lib/key.rb"
          end
      
         #  case @modified_user_input
-        #  when "b-flat":
+        #  when "b-flat" || "c-flat"
         #    scrape_key("http://www.piano-keyboard-guide.com/key-of-b-flat.html")
      
              if @modified_user_input == "b-flat"
